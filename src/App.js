@@ -37,23 +37,23 @@ function Board() {
   const handleClick = (key) => {
     if (!winner) {
       let temp = [...board];
-      board.forEach((cell) => {
-        if (cell.key === key) {
+      temp.forEach((cell) => {
+        if (cell.key === key && cell.val == null) {
           temp[key] = { key: key, val: player };
+          setBoard(temp);
+          win.forEach((line) => {
+            if (
+              temp[line[0]].val === player &&
+              temp[line[1]].val === player &&
+              temp[line[2]].val === player
+            ) {
+              console.log("win");
+              setWinner(player);
+            }
+          });
+          player === "X" ? setPlayer("O") : setPlayer("X");
         }
       });
-      setBoard(temp);
-      win.forEach((line) => {
-        if (
-          temp[line[0]].val === player &&
-          temp[line[1]].val === player &&
-          temp[line[2]].val === player
-        ) {
-          console.log("win");
-          setWinner(player);
-        }
-      });
-      player === "X" ? setPlayer("O") : setPlayer("X");
     }
   };
 
